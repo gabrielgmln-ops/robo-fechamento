@@ -1,0 +1,32 @@
+# robo-fechamento/pyproject.toml
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "robo-fechamento"
+version = "0.1.0"
+description = "Robô de fechamento diário (end-of-day) sobre a Ledger API: saldos, integridade, PDF e e-mail."
+requires-python = ">=3.12"
+
+[project.scripts]
+fechamento = "fechamento.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "."]
+addopts = "-q"
+filterwarnings = [
+    "ignore::sqlalchemy.exc.SAWarning",  # SQLite não tem Decimal nativo (só nos testes)
+    "ignore:unclosed database:ResourceWarning",  # engines criados dentro da CLI
+]
+
+[tool.coverage.run]
+source = ["fechamento"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false

@@ -1,0 +1,13 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.coverage
+htmlcov/
+*.egg-info/
+# Gerado em tempo de execução (dados sintéticos, recriáveis)
+dados/*.db
+dados/arquivo/*
+logs/*
+!**/.gitkeep
