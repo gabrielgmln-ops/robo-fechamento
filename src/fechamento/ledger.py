@@ -110,6 +110,9 @@ def _para_dataframe(linhas) -> pd.DataFrame:
     df = pd.DataFrame([dict(l._mapping) for l in linhas], columns=COLUNAS_LANCAMENTO)
     if df.empty:
         return df
+    # Na Ledger real (PostgreSQL) os ids chegam como uuid.UUID; padroniza em texto.
+    df["transacao_id"] = df["transacao_id"].map(str)
+    df["conta_id"] = df["conta_id"].map(str)
     # Garante Decimal (nunca float) e datas com fuso UTC.
     df["valor"] = df["valor"].map(lambda v: Decimal(v).quantize(Decimal("0.01")))
     df["valor_transacao"] = df["valor_transacao"].map(
@@ -140,4 +143,6 @@ def ler_contas(engine: Engine, fim_utc: datetime) -> pd.DataFrame:
     """Contas existentes até o fim do dia (inclusive as sem movimento)."""
     q = select(conta.c.id, conta.c.titular, conta.c.tipo).where(conta.c.criada_em < fim_utc).order_by(conta.c.titular)
     with engine.connect() as cx:
-        return pd.DataFrame([dict(l._mapping) for l in cx.execute(q)], columns=["id", "titular", "tipo"])
+        df = pd.DataFrame([dict(l._mapping) for l in cx.execute(q)], columns=["id", "titular", "tipo"])
+    df["id"] = df["id"].map(str)  # uuid.UUID no PostgreSQL -> texto
+    return df

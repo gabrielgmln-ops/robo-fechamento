@@ -38,3 +38,18 @@ def test_le_contas_incluindo_tesouraria(ledger_limpa):
     contas = ler_contas(ledger_limpa, Periodo.do_dia(ULTIMO_DIA).fim_utc)
     assert len(contas) == 7
     assert (contas["tipo"] == "INTERNA").sum() == 1
+
+
+def test_ids_uuid_do_postgres_viram_texto():
+    """Na Ledger real os ids vêm como uuid.UUID; o banco do robô (SQLite) só aceita texto."""
+    import uuid
+    from types import SimpleNamespace
+
+    from fechamento.ledger import _para_dataframe
+    tid, cid = uuid.uuid4(), uuid.uuid4()
+    linha = SimpleNamespace(_mapping={
+        "id": 1, "transacao_id": tid, "conta_id": cid, "tipo": "CREDITO", "valor": Decimal("10.00"),
+        "criado_em": datetime(2026, 10, 29, 12, tzinfo=timezone.utc), "titular": "Teste",
+        "tipo_conta": "CLIENTE", "valor_transacao": Decimal("10.00")})
+    df = _para_dataframe([linha])
+    assert df["transacao_id"].iloc[0] == str(tid) and df["conta_id"].iloc[0] == str(cid)
