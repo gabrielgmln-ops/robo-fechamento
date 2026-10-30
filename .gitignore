@@ -11,3 +11,4 @@ dados/*.db
 dados/arquivo/*
 logs/*
 !**/.gitkeep
+dados/arquivo_*/
