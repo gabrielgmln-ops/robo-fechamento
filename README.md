@@ -1,6 +1,6 @@
 # Robô de Fechamento Diário
 
-Automação de **end-of-day** sobre a [Ledger API](https://github.com/gabrielgmln-ops/Projeto-B-A): ao fim do dia, o robô lê todos os lançamentos, recalcula o saldo de cada conta, verifica a integridade contábil, detecta inconsistências, gera um PDF de fechamento, arquiva por data, envia por e-mail e marca o dia como **CONFORME** ou **NÃO CONFORME**.
+Automação de **end-of-day** sobre a [Ledger API](https://github.com/gabrielgmln-ops/ledger-api): ao fim do dia, o robô lê todos os lançamentos, recalcula o saldo de cada conta, verifica a integridade contábil, detecta inconsistências, gera um PDF de fechamento, arquiva por data, envia por e-mail e marca o dia como **CONFORME** ou **NÃO CONFORME**.
 
 > Apenas dados sintéticos. Dinheiro sempre em `Decimal`. Segredos só por variável de ambiente.
 
