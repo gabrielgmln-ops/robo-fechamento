@@ -57,7 +57,7 @@ Na Ledger real, aponte para o banco dela com um usuário **somente leitura**: o 
 pytest --cov
 ```
 
-São 36 testes, com cobertura de 98%. Cada anomalia plantada é detectada, e um dia limpo não gera nenhum alerta. A suíte também cobre a adulteração de um lançamento antigo (pega pela continuidade), a idempotência ao reexecutar, o envio de e-mail com SMTP simulado, o agendador sobrevivendo a erro e a CLI.
+São 37 testes, com cobertura de 98%. Cada anomalia plantada é detectada, e um dia limpo não gera nenhum alerta. A suíte também cobre a adulteração de um lançamento antigo (pega pela continuidade), a idempotência ao reexecutar, o envio de e-mail com SMTP simulado, o agendador sobrevivendo a erro e a CLI.
 
 ## Decisões
 
